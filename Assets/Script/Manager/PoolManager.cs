@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using System.Linq;
 
 public enum ObjectTypes
 {
@@ -88,6 +89,16 @@ public class PoolManager : MonoBehaviour
         }
         Debug.Log("Nessun " + type + " disponibile");
         return null;
+    }
+
+    public List<GameObject> GetPooledObjectList(ObjectTypes type)
+    {
+        List<GameObject> returnList = new List<GameObject>();
+        foreach (IPoolObject _object in poolDictionary[type])
+        {
+            returnList.Add(_object.gameObject);
+        }
+        return returnList;
     }
 
     private void OnDisable()

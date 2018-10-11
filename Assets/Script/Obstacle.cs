@@ -52,4 +52,15 @@ public class Obstacle : MonoBehaviour, IPoolObject
             }
         }
     }
+
+    public void StopMoving()
+    {
+        CanMove = false;
+    }
+
+    public void StartGame()
+    {
+        if (OnObjectDestroy != null)
+            OnObjectDestroy(this);
+    }
 }
