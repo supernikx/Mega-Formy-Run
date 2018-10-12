@@ -1,13 +1,17 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    dreamloLeaderBoard leaderBoard;
     UIManager ui;
-    float score;
+    float scoreCounter;
+    int score;
     bool isGameEnd;
+    string PlayerName = "default";
 
     private void OnEnable()
     {
@@ -20,6 +24,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        leaderBoard = FindObjectOfType<dreamloLeaderBoard>();
         ui = FindObjectOfType<UIManager>();
     }
 
@@ -27,15 +32,22 @@ public class GameManager : MonoBehaviour
     {
         if (!isGameEnd)
         {
-            score += Time.deltaTime * 10;
+            scoreCounter += Time.deltaTime * 10;
+            score = (int)Mathf.Round(scoreCounter);
             ui.UpdateScore(score);
         }
+    }
+
+    public void SetPlayerName(string name)
+    {
+        PlayerName = name;
     }
 
     public void GameStart()
     {
         if (EventManager.OnGameStart != null)
             EventManager.OnGameStart();
+        scoreCounter = 0;
         score = 0;
         isGameEnd = false;
         Debug.Log("Game Iniziato");
@@ -44,6 +56,7 @@ public class GameManager : MonoBehaviour
     private void GameEnd()
     {
         isGameEnd = true;
+        leaderBoard.AddScore(PlayerName, score);
         Debug.Log("Game Finito");
     }
 }

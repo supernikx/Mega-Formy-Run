@@ -31,9 +31,9 @@ public class UIManager : MonoBehaviour {
         StartButton.SetActive(true);
     }
 
-    public void UpdateScore(float _score)
-    {        
-        ScoreCounter.text = Mathf.Round(_score).ToString();
+    public void UpdateScore(int _score)
+    {
+        ScoreCounter.text = _score.ToString();
     }
 
     private void GameEnd()
