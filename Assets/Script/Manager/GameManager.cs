@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class GameManager : MonoBehaviour
 {
+    public static GameManager instance;
+
     dreamloLeaderBoard leaderBoard;
     UIManager ui;
     float scoreCounter;
@@ -24,6 +26,7 @@ public class GameManager : MonoBehaviour
 
     private void Awake()
     {
+        instance = this;
         leaderBoard = FindObjectOfType<dreamloLeaderBoard>();
         ui = FindObjectOfType<UIManager>();
     }

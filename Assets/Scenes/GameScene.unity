@@ -694,7 +694,6 @@ MonoBehaviour:
   ScoreText: {fileID: 1096126358}
   ScoreCounter: {fileID: 1646437582}
   GameOverText: {fileID: 1204102388}
-  nameField: {fileID: 0}
 --- !u!1001 &1240237563
 Prefab:
   m_ObjectHideFlags: 0
@@ -1388,3 +1387,43 @@ CanvasRenderer:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1987963527}
   m_CullTransparentMesh: 0
+--- !u!1 &2058959374
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2058959376}
+  - component: {fileID: 2058959375}
+  m_Layer: 0
+  m_Name: NameSubmitter
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &2058959375
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2058959374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: db4b1a0026d392543b129451db259ea4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &2058959376
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 2058959374}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
