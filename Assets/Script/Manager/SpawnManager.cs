@@ -12,12 +12,16 @@ public class SpawnManager : MonoBehaviour
     float StartObstacleSpeed;
     float ObstacleSpeed;
 
+    PlayerController player;
     PoolManager pool;
     float Timer;
     int UpSpawnWave;
     int UpSpawnWaveCounter;
     int WaveCounter;
     bool SpawnObstacles;
+
+    float SpawnTimeRateMin;
+    float SpawnTimeRateMax;
 
     private void OnEnable()
     {
@@ -32,10 +36,13 @@ public class SpawnManager : MonoBehaviour
 
     private void Awake()
     {
+        player = FindObjectOfType<PlayerController>();
         pool = GetComponent<PoolManager>();
         ObstacleSpeed = StartObstacleSpeed;
         SpawnObstacles = false;
         UpSpawnWave = Random.Range(0, 3);
+        SpawnTimeRateMin = 1f;
+        SpawnTimeRateMax = 2.5f;
     }
 
     private void Update()
@@ -55,11 +62,20 @@ public class SpawnManager : MonoBehaviour
         Timer = 0;
         UpSpawnWaveCounter++;
         WaveCounter++;
-        SpawnTime = Random.Range(0.5f, 2);
-        Obstacle PooledObstacle = pool.GetPooledObject(ObjectTypes.Obstalce).GetComponent<Obstacle>();
+        SpawnTime = Random.Range(SpawnTimeRateMin, SpawnTimeRateMax);
+        Obstacle PooledObstacle;
 
-        if (WaveCounter % 2 == 0 && ObstacleSpeed  < 0.8f)
+        if (WaveCounter % 2 == 0 && ObstacleSpeed < 0.8f)
+        {
+            if (WaveCounter % 10 == 0 && SpawnTimeRateMin > 0.5f)
+            {
+                player.ReduceJumpDuration();
+                SpawnTimeRateMin -= 0.2f;
+                SpawnTimeRateMax -= 0.5f;
+            }
+
             ObstacleSpeed += 0.02f;
+        }
 
         if (UpSpawnWaveCounter > UpSpawnWave)
         {
@@ -67,15 +83,18 @@ public class SpawnManager : MonoBehaviour
             {
                 UpSpawnWaveCounter = 0;
                 UpSpawnWave = Random.Range(0, 3);
+                PooledObstacle = pool.GetPooledObject(ObjectTypes.FlyObstacle).GetComponent<Obstacle>();
                 PooledObstacle.transform.position = SpawnPointUp.position;
             }
             else
             {
+                PooledObstacle = pool.GetPooledObject(ObjectTypes.FireObstacle).GetComponent<Obstacle>();
                 PooledObstacle.transform.position = SpawnPointDown.position;
             }
         }
         else
         {
+            PooledObstacle = pool.GetPooledObject(ObjectTypes.FireObstacle).GetComponent<Obstacle>();
             PooledObstacle.transform.position = SpawnPointDown.position;
         }
 
@@ -84,7 +103,15 @@ public class SpawnManager : MonoBehaviour
 
     private void GameEnd()
     {
-        foreach (GameObject g in pool.GetPooledObjectList(ObjectTypes.Obstalce))
+        foreach (GameObject g in pool.GetPooledObjectList(ObjectTypes.FireObstacle))
+        {
+            Obstacle gobstacle = g.GetComponent<Obstacle>();
+            IPoolObject gpool = gobstacle as IPoolObject;
+            if (gpool.CurrentState == State.InUse)
+                gobstacle.StopMoving();
+        }
+
+        foreach (GameObject g in pool.GetPooledObjectList(ObjectTypes.FlyObstacle))
         {
             Obstacle gobstacle = g.GetComponent<Obstacle>();
             IPoolObject gpool = gobstacle as IPoolObject;
@@ -97,14 +124,19 @@ public class SpawnManager : MonoBehaviour
 
     private void GameStart()
     {
-        foreach (GameObject g in pool.GetPooledObjectList(ObjectTypes.Obstalce))
+        foreach (GameObject g in pool.GetPooledObjectList(ObjectTypes.FireObstacle))
+        {
+            g.GetComponent<Obstacle>().StartGame();
+        }
+
+        foreach (GameObject g in pool.GetPooledObjectList(ObjectTypes.FlyObstacle))
         {
             g.GetComponent<Obstacle>().StartGame();
         }
 
         UpSpawnWave = Random.Range(0, 3);
         Timer = 0;
-        SpawnTime = Random.Range(0.5f, 2);
+        SpawnTime = Random.Range(SpawnTimeRateMin, SpawnTimeRateMax);
         UpSpawnWaveCounter = 0;
         WaveCounter = 0;
         ObstacleSpeed = StartObstacleSpeed;

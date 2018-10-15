@@ -5,7 +5,8 @@ using System.Linq;
 
 public enum ObjectTypes
 {
-    Obstalce,
+    FireObstacle,
+    FlyObstacle,
 }
 
 [System.Serializable]
