@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices;
-using UnityEngine;
+﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class GameManager : MonoBehaviour
 {
@@ -58,6 +55,7 @@ public class GameManager : MonoBehaviour
 
     private void GameEnd()
     {
+        EventSystem.current.SetSelectedGameObject(null);
         isGameEnd = true;
         leaderBoard.AddScore(PlayerName, score);
         Debug.Log("Game Finito");
