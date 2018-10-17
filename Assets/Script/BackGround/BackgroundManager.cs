@@ -1,16 +1,32 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class BackgroundManager : MonoBehaviour {
-    public float backgoundDislpace = 40.90001f;
-    public float backgroundspeed=0.1f;
+    [SerializeField]
+    float backgoundDislpace = 40.90001f;
+    [SerializeField]
+    float backgroundstartspeed;
+    float backgroundspeed;
     public BackgroundController bg1;
     public BackgroundController bg2;
     BackgroundController currentBG;
 
-	// Use this for initialization
-	void Start () {
+    private void OnEnable()
+    {
+        EventManager.OnGameEnd += GameEnd;
+        EventManager.OnGameStart += GameStart;
+    }
+    private void OnDisable()
+    {
+        EventManager.OnGameEnd -= GameEnd;
+        EventManager.OnGameStart -= GameStart;
+    }
+
+    // Use this for initialization
+    void Start () {
+        backgroundspeed = 0;
         currentBG = bg1;
 	}
 	
@@ -26,5 +42,15 @@ public class BackgroundManager : MonoBehaviour {
         BackgroundController other = (bg == bg1) ? bg2 : bg1;
         bg.transform.position = new Vector3(other.transform.position.x + backgoundDislpace, other.transform.position.y, other.transform.position.z);
         currentBG = other;
+    }
+
+    private void GameEnd()
+    {
+        backgroundspeed = 0;
+    }
+
+    private void GameStart()
+    {
+        backgroundspeed = backgroundstartspeed;
     }
 }

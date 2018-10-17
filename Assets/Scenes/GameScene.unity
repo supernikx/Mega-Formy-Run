@@ -856,7 +856,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   backgoundDislpace: 40.90001
-  backgroundspeed: 0.1
+  backgroundstartspeed: 0.1
   bg1: {fileID: 431047357}
   bg2: {fileID: 1491576510}
 --- !u!4 &1544427618
