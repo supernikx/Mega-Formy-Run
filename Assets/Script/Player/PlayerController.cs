@@ -9,6 +9,7 @@ public class PlayerController : MonoBehaviour
     float JumpForce;
     [SerializeField]
     float JumpDuration;
+    float StartJumpDuration;
 
     Animator anim;
     bool CanJump;
@@ -37,6 +38,7 @@ public class PlayerController : MonoBehaviour
         CanJump = false;
         JumpPosition = new Vector2(transform.position.x, transform.position.y + JumpForce);
         startPosition = transform.position;
+        StartJumpDuration = JumpDuration;
     }
 
     // Update is called once per frame
@@ -81,7 +83,7 @@ public class PlayerController : MonoBehaviour
     private void GameStart()
     {
         anim.enabled = true;
-
+        JumpDuration = StartJumpDuration;
         anim.SetTrigger("Start");
         transform.position = startPosition;
         CanJump = true;
@@ -89,6 +91,9 @@ public class PlayerController : MonoBehaviour
 
     public void ReduceJumpDuration()
     {
-        JumpDuration += 1.5f;
+        if (JumpDuration < 20)
+        {
+            JumpDuration += 0.15f;
+        }
     }
 }

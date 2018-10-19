@@ -26,6 +26,7 @@ public class GameManager : MonoBehaviour
         instance = this;
         leaderBoard = FindObjectOfType<dreamloLeaderBoard>();
         ui = FindObjectOfType<UIManager>();
+        isGameEnd = true;
     }
 
     private void Update()

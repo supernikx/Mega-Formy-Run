@@ -3,14 +3,28 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BackgroundManager : MonoBehaviour {
+public class BackgroundManager : MonoBehaviour
+{
     [SerializeField]
-    float backgoundDislpace = 40.90001f;
+    List<BackgroundController> Backgrounds = new List<BackgroundController>();
+    List<Transform> BackgroundsStartPositions = new List<Transform>();
     [SerializeField]
     float backgroundstartspeed;
-    float backgroundspeed;
-    public BackgroundController bg1;
-    public BackgroundController bg2;
+    float _backgroundspeed;
+    public float BackgroundSpeed {
+        get
+        {
+            return _backgroundspeed;
+        }
+        set
+        {
+            _backgroundspeed = value;
+            SetBackgroundspeed(_backgroundspeed);
+        }
+    }
+    Vector3 backgroundStartPos;
+    Vector3 backgroundResetPosition;
+
     BackgroundController currentBG;
 
     private void OnEnable()
@@ -24,33 +38,74 @@ public class BackgroundManager : MonoBehaviour {
         EventManager.OnGameStart -= GameStart;
     }
 
-    // Use this for initialization
-    void Start () {
-        backgroundspeed = 0;
-        currentBG = bg1;
-	}
-	
-	// Update is called once per frame
-	void Update () {
-        transform.position += new Vector3(-backgroundspeed, 0, 0);
-	}
+    void Start()
+    {
+        BackgroundSpeed = 0;
+        currentBG = Backgrounds[0];
+        backgroundStartPos = Backgrounds[Backgrounds.Count - 1].transform.position;
+        backgroundStartPos.x -= 0.15f;
+        backgroundResetPosition = backgroundStartPos;
+        foreach (BackgroundController b in Backgrounds)
+        {
+            BackgroundsStartPositions.Add(b.transform);
+        }
+    }
+
+    private void GameEnd()
+    {
+        BackgroundSpeed = 0;
+    }
+
+    private void GameStart()
+    {
+        for (int i = 0; i < Backgrounds.Count; i++)
+        {
+            Backgrounds[i].transform.position = BackgroundsStartPositions[i].position;
+        }
+
+        backgroundResetPosition = backgroundStartPos;
+        BackgroundSpeed = backgroundstartspeed;
+    }
 
     public void RespawnBG(BackgroundController bg)
     {
         if (bg != currentBG)
             return;
-        BackgroundController other = (bg == bg1) ? bg2 : bg1;
-        bg.transform.position = new Vector3(other.transform.position.x + backgoundDislpace, other.transform.position.y, other.transform.position.z);
+
+        BackgroundController other = bg;
+        for (int i = 0; i < Backgrounds.Count; i++)
+        {
+            if (bg == Backgrounds[i])
+            {
+                if ((i + 1) <= (Backgrounds.Count - 1))
+                {
+                    other = Backgrounds[i + 1];
+                }
+                else
+                {
+                    other = Backgrounds[0];
+                }
+                break;
+            }
+        }
+
+        bg.transform.position = new Vector3(backgroundResetPosition.x, backgroundResetPosition.y, backgroundResetPosition.z);
         currentBG = other;
     }
 
-    private void GameEnd()
+    private void SetBackgroundspeed(float _Speed)
     {
-        backgroundspeed = 0;
+        foreach (BackgroundController b in Backgrounds)
+        {
+            b.SetSpeed(_Speed);
+        }
     }
 
-    private void GameStart()
+    public void IncreaseBackgroundSpeed()
     {
-        backgroundspeed = backgroundstartspeed;
+        if (BackgroundSpeed < 0.5)
+        {
+            BackgroundSpeed += 0.01f;
+        }
     }
 }

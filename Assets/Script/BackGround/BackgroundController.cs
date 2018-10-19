@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class BackgroundController : MonoBehaviour
 {
-
+    float Speed;
     float screenWidth;
     Bounds bound;
     BackgroundManager bgManager;
@@ -24,9 +24,15 @@ public class BackgroundController : MonoBehaviour
         bound = GetComponent<SpriteRenderer>().bounds;
     }
 
-    // Update is called once per frame
-    void Update()
+    public void SetSpeed (float _speed)
     {
+        Speed = _speed;
+    }
+
+    // Update is called once per frame
+    void FixedUpdate()
+    {
+        transform.position += new Vector3(-Speed, 0, 0);
         if (CheckScreenPosition())
             bgManager.RespawnBG(this);
     }
