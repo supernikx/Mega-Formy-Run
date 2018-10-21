@@ -6,12 +6,14 @@ using UnityEngine;
 public class BackgroundManager : MonoBehaviour
 {
     [SerializeField]
-    List<BackgroundController> Backgrounds = new List<BackgroundController>();
-    List<Transform> BackgroundsStartPositions = new List<Transform>();
+    BackgroundController bg1;
+    [SerializeField]
+    BackgroundController bg2;
     [SerializeField]
     float backgroundstartspeed;
     float _backgroundspeed;
-    public float BackgroundSpeed {
+    public float BackgroundSpeed
+    {
         get
         {
             return _backgroundspeed;
@@ -22,8 +24,8 @@ public class BackgroundManager : MonoBehaviour
             SetBackgroundspeed(_backgroundspeed);
         }
     }
-    Vector3 backgroundStartPos;
-    Vector3 backgroundResetPosition;
+    [SerializeField]
+    float backgroundOffset;
 
     BackgroundController currentBG;
 
@@ -41,14 +43,7 @@ public class BackgroundManager : MonoBehaviour
     void Start()
     {
         BackgroundSpeed = 0;
-        currentBG = Backgrounds[0];
-        backgroundStartPos = Backgrounds[Backgrounds.Count - 1].transform.position;
-        backgroundStartPos.x -= 0.15f;
-        backgroundResetPosition = backgroundStartPos;
-        foreach (BackgroundController b in Backgrounds)
-        {
-            BackgroundsStartPositions.Add(b.transform);
-        }
+        currentBG = bg1;
     }
 
     private void GameEnd()
@@ -58,12 +53,6 @@ public class BackgroundManager : MonoBehaviour
 
     private void GameStart()
     {
-        for (int i = 0; i < Backgrounds.Count; i++)
-        {
-            Backgrounds[i].transform.position = BackgroundsStartPositions[i].position;
-        }
-
-        backgroundResetPosition = backgroundStartPos;
         BackgroundSpeed = backgroundstartspeed;
     }
 
@@ -72,33 +61,16 @@ public class BackgroundManager : MonoBehaviour
         if (bg != currentBG)
             return;
 
-        BackgroundController other = bg;
-        for (int i = 0; i < Backgrounds.Count; i++)
-        {
-            if (bg == Backgrounds[i])
-            {
-                if ((i + 1) <= (Backgrounds.Count - 1))
-                {
-                    other = Backgrounds[i + 1];
-                }
-                else
-                {
-                    other = Backgrounds[0];
-                }
-                break;
-            }
-        }
+        BackgroundController other = (bg == bg1) ? bg2 : bg1;
 
-        bg.transform.position = new Vector3(backgroundResetPosition.x, backgroundResetPosition.y, backgroundResetPosition.z);
+        bg.transform.position = new Vector3(other.transform.position.x + backgroundOffset, other.transform.position.y, other.transform.position.z);
         currentBG = other;
     }
 
     private void SetBackgroundspeed(float _Speed)
     {
-        foreach (BackgroundController b in Backgrounds)
-        {
-            b.SetSpeed(_Speed);
-        }
+        bg1.SetSpeed(_Speed);
+        bg2.SetSpeed(_Speed);
     }
 
     public void IncreaseBackgroundSpeed()

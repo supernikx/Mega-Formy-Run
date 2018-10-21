@@ -49,6 +49,7 @@ public class UIManager : MonoBehaviour {
     private void GameEnd()
     {        
         GameOverText.SetActive(true);
+        StartButton.SetActive(true);
         StartCoroutine(StartButtonCoroutine);
     }
 
@@ -63,11 +64,13 @@ public class UIManager : MonoBehaviour {
 
     IEnumerator StartLampeggio()
     {
+        Image i = StartButton.GetComponent<Image>();
+        Color c = i.color;
         while (true)
         {
-            StartButton.SetActive(true);
+            i.color = new Color(c.r, c.g, c.b, 1);
             yield return new WaitForSeconds(1f);
-            StartButton.SetActive(false);
+            i.color = new Color(c.r, c.g, c.b, 0);
             yield return new WaitForSeconds(0.4f);
         }
     }

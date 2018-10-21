@@ -1,10 +1,13 @@
-﻿using System;
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
 public class PlayerController : MonoBehaviour
 {
+    [SerializeField]
+    GameObject WhiteGraphics;
+    [SerializeField]
+    GameObject BlackGraphics;
     [SerializeField]
     float JumpForce;
     [SerializeField]
@@ -27,14 +30,10 @@ public class PlayerController : MonoBehaviour
         EventManager.OnGameStart -= GameStart;
     }
 
-    private void Awake()
-    {
-        anim = GetComponent<Animator>();
-    }
-
     // Use this for initialization
     void Start()
     {
+        RandomizeGraphics();
         CanJump = false;
         JumpPosition = new Vector2(transform.position.x, transform.position.y + JumpForce);
         startPosition = transform.position;
@@ -50,6 +49,22 @@ public class PlayerController : MonoBehaviour
             {
                 StartCoroutine(JumpCoroutine());
             }
+        }
+    }
+
+    void RandomizeGraphics()
+    {
+        if (Random.Range(0,2) == 0)
+        {
+            WhiteGraphics.SetActive(true);
+            BlackGraphics.SetActive(false);
+            anim = WhiteGraphics.GetComponent<Animator>();
+        }
+        else
+        {
+            BlackGraphics.SetActive(true);
+            WhiteGraphics.SetActive(false);
+            anim = BlackGraphics.GetComponent<Animator>();
         }
     }
 
@@ -82,6 +97,7 @@ public class PlayerController : MonoBehaviour
 
     private void GameStart()
     {
+        RandomizeGraphics();
         anim.enabled = true;
         JumpDuration = StartJumpDuration;
         anim.SetTrigger("Start");
