@@ -1670,7 +1670,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Source: {fileID: 1582117411}
-  StartClip: {fileID: 8300000, guid: 93cc401ee7ec96d418ee7a94858326c8, type: 3}
+  StartClip: {fileID: 8300000, guid: c685f537f0e114f47be0551d0c70b9de, type: 3}
   LoopClip: {fileID: 8300000, guid: d5db902ee324e644d852c16f0de4e8d4, type: 3}
 --- !u!114 &1954268951
 MonoBehaviour:
