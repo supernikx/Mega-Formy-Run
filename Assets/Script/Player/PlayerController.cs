@@ -7,7 +7,7 @@ public class PlayerController : MonoBehaviour
     [SerializeField]
     GameObject WhiteGraphics;
     [SerializeField]
-    GameObject BlackGraphics;
+    GameObject OrangeGraphics;
     [SerializeField]
     float JumpForce;
     [SerializeField]
@@ -33,7 +33,6 @@ public class PlayerController : MonoBehaviour
     // Use this for initialization
     void Start()
     {
-        RandomizeGraphics();
         CanJump = false;
         JumpPosition = new Vector2(transform.position.x, transform.position.y + JumpForce);
         startPosition = transform.position;
@@ -57,14 +56,14 @@ public class PlayerController : MonoBehaviour
         if (Random.Range(0,2) == 0)
         {
             WhiteGraphics.SetActive(true);
-            BlackGraphics.SetActive(false);
+            OrangeGraphics.SetActive(false);
             anim = WhiteGraphics.GetComponent<Animator>();
         }
         else
         {
-            BlackGraphics.SetActive(true);
+            OrangeGraphics.SetActive(true);
             WhiteGraphics.SetActive(false);
-            anim = BlackGraphics.GetComponent<Animator>();
+            anim = OrangeGraphics.GetComponent<Animator>();
         }
     }
 

@@ -42,7 +42,7 @@ public class SpawnManager : MonoBehaviour
         pool = GetComponent<PoolManager>();
         ObstacleSpeed = StartObstacleSpeed;
         SpawnObstacles = false;
-        UpSpawnWave = Random.Range(0, 3);
+        UpSpawnWave = Random.Range(1, 3);
         SpawnTimeRateMin = 1.5f;
         SpawnTimeRateMax = 3f;
     }
@@ -84,7 +84,7 @@ public class SpawnManager : MonoBehaviour
         if (UpSpawnWaveCounter > UpSpawnWave)
         {
             UpSpawnWaveCounter = 0;
-            UpSpawnWave = Random.Range(0, 3);
+            UpSpawnWave = Random.Range(1, 3);
             PooledObstacle = pool.GetPooledObject(ObjectTypes.FlyObstacle).GetComponent<Obstacle>();
             PooledObstacle.transform.position = SpawnPointUp.position;
         }
@@ -132,7 +132,7 @@ public class SpawnManager : MonoBehaviour
 
         SpawnTimeRateMin = 1.5f;
         SpawnTimeRateMax = 3f;
-        UpSpawnWave = Random.Range(0, 3);
+        UpSpawnWave = Random.Range(1, 3);
         Timer = 0;
         SpawnTime = Random.Range(SpawnTimeRateMin, SpawnTimeRateMax);
         UpSpawnWaveCounter = 0;

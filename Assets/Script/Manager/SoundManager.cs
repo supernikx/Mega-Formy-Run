@@ -2,7 +2,8 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SoundManager : MonoBehaviour {
+public class SoundManager : MonoBehaviour
+{
     [SerializeField]
     AudioSource Source;
     [SerializeField]
@@ -10,15 +11,16 @@ public class SoundManager : MonoBehaviour {
     [SerializeField]
     AudioClip LoopClip;
 
-    void Start () {
+    void Start()
+    {
         StartCoroutine(StartAudio());
-	}
+    }
 
     IEnumerator StartAudio()
     {
         Source.clip = StartClip;
         Source.Play();
-        yield return new WaitForSeconds(StartClip.length);
+        yield return new WaitForSeconds(StartClip.length - 0.1f);
         Source.clip = LoopClip;
         Source.Play();
         Source.loop = true;

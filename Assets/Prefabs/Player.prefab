@@ -22,12 +22,12 @@ GameObject:
   - component: {fileID: 212282814049348728}
   - component: {fileID: 95090803183891756}
   m_Layer: 0
-  m_Name: GraphicsBlack
+  m_Name: GraphicsArancioni
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1630739071857904
 GameObject:
   m_ObjectHideFlags: 0
@@ -44,7 +44,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!1 &1662108936914650
 GameObject:
   m_ObjectHideFlags: 0
@@ -177,7 +177,7 @@ Animator:
   m_GameObject: {fileID: 1630739071857904}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 9100000, guid: becb472dc1a693547bb932be149ab776, type: 2}
+  m_Controller: {fileID: 9100000, guid: aba101d77500f5b4fbaa0cec3b81e0a4, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -209,7 +209,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   WhiteGraphics: {fileID: 1630739071857904}
-  BlackGraphics: {fileID: 1544680765226092}
+  OrangeGraphics: {fileID: 1544680765226092}
   JumpForce: 4.5
   JumpDuration: 10
 --- !u!212 &212135494697265178
@@ -247,7 +247,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 62cda8aea5740f54b9a57ac317345f94, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 71983848e645c714092d73c3583eaf6c, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0

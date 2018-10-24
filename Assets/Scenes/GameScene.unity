@@ -1327,27 +1327,8 @@ Prefab:
       propertyPath: m_RootOrder
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 95784339514963578, guid: 4e25e535d8ca689449befdc2979dbe1e,
-        type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: aba101d77500f5b4fbaa0cec3b81e0a4, type: 2}
-    - target: {fileID: 1544680765226092, guid: 4e25e535d8ca689449befdc2979dbe1e, type: 2}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 1630739071857904, guid: 4e25e535d8ca689449befdc2979dbe1e, type: 2}
       propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 212135494697265178, guid: 4e25e535d8ca689449befdc2979dbe1e,
-        type: 2}
-      propertyPath: m_Sprite
-      value: 
-      objectReference: {fileID: 21300000, guid: 71983848e645c714092d73c3583eaf6c,
-        type: 3}
-    - target: {fileID: 4893330734018144, guid: 4e25e535d8ca689449befdc2979dbe1e, type: 2}
-      propertyPath: m_LocalPosition.x
       value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
